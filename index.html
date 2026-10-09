@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>CSS Grid - Presentation by Narendran S</title>
+
+		<meta name="description" content="Presentation about CSS Grid, a two-dimensional layout system for the web. Explore grid container and item properties, sizing functions and layout tricks.">
+		<meta name="author" content="Narendran S">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+
+		<link rel="icon" href="assets/img/favicon.png">
+
+		<link rel="stylesheet" href="assets/css/reveal.css">
+		<link rel="stylesheet" href="assets/css/theme.css" id="theme">
+		<link rel="stylesheet" href="assets/css/grid.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="assets/css/zenburn.css">
+
+		<script type="text/javascript" src="assets/js/jquery-1.10.1.min.js"></script>
+
+		<!-- OG Details -->
+		<meta property="og:title" content="CSS Grid - Presentation by Narendran S"/>
+		<meta property="og:description" content="Presentation about CSS Grid, a two-dimensional layout system for the web. Explore grid container and item properties, sizing functions and layout tricks.">
+		<meta property="og:url" content="https://naren-irain.github.io/grid-presentation/" />
+
+	</head>
+
+	<body>
+
+		<!--
+			Demos: <div class="gridPreview" data-preview="key"> renders a live preview from
+			the GRID_PREVIEWS config in assets/js/preview.js.
+		-->
+
+		<div class="reveal">
+
+			<div class="slides">
+
+				<!-- Landing -->
+				<section class="introSlide">
+					<div class="fcBox">
+						<div class="fiBox big half vFull centerAlign">
+							<h1>Grid</h1>
+							<p>a two-dimensional layout system for the web.</p>
+						</div>
+						<div class="fiBox threeRow half vFull">
+							<div class="iSlide vSmall full centerAlign"></div>
+							<div class="iGrid vSmall full">
+								<div>1</div>
+								<div>2</div>
+								<div>3</div>
+							</div>
+							<div class="fiBox vSmall half dark centerAlign">
+								<p><small>EXPLORE</small><br/>{grid-container-props}<br/>{sizing-functions}<br/>{grid-items-props}<br/>{layout-tricks}</p>
+							</div>
+							<div class="fiBox vSmall half gray centerAlign">
+								<small>Presented by <a href="https://github.com/naren-irain" target="_blank">Narendran S</a></small>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Section 2 - Browser Support -->
+				<section class="browserSupport">
+					<div class="bsBox doubtBox">
+						<figure>
+							<img src="assets/img/img-doubt.png" alt="Person wondering about browser support" />
+						</figure>
+						<h2><small>Not yet tried?</small> <br/> still thinking about<br/> browser support?</h2>
+					</div>
+					<div class="bsBox clearBox fragment fade-in" data-fragment-index="1">
+						<figure class="right">
+							<img src="assets/img/img-clear.png" alt="Person relieved" />
+						</figure>
+						<div class="frame">
+							<h3>Supported in every modern browser since 2017. <small>subgrid since 2023.</small></h3>
+							<iframe src="https://caniuse.bitsofco.de/embed/index.html?feat=css-grid&amp;periods=current,past_1,past_2" frameborder="0" width="100%" height="536px"></iframe>
+						</div>
+					</div>
+				</section>
+
+				<!-- Section 3 - Basics -->
+				<section class="basicSection">
+					<section>
+						<h2>CSS Grid Layout</h2>
+						<p>Grid lays out items in rows and columns at the same time. You define the tracks on the container, then place items into the cells and areas they create, with no floats, positioning or extra wrapper markup.</p>
+						<div class="gridPreview" data-preview="intro" data-title="css grid layout"></div>
+					</section>
+					<section>
+						<h2>Grid Terminology</h2>
+						<p>Once you give an element <mark>display: grid</mark>, it becomes the grid container and its direct children become grid items.<br/>Lines divide the grid into tracks, and tracks cross to form cells and areas.</p>
+						<figure class="terms">
+							<svg viewBox="0 0 680 340" role="img" aria-label="A 3 by 2 grid showing numbered grid lines, a highlighted grid cell, a grid area spanning two cells, a row track and the gap between tracks" font-family="monospace" font-size="14">
+								<rect x="60" y="50" width="480" height="240" fill="none" stroke="#1c1e22" stroke-width="2"/>
+								<g stroke="#999" stroke-dasharray="4 4">
+									<line x1="70" y1="40" x2="70" y2="300"/>
+									<line x1="220" y1="40" x2="220" y2="300"/>
+									<line x1="380" y1="40" x2="380" y2="300"/>
+									<line x1="530" y1="40" x2="530" y2="300"/>
+									<line x1="50" y1="60" x2="550" y2="60"/>
+									<line x1="50" y1="170" x2="550" y2="170"/>
+									<line x1="50" y1="280" x2="550" y2="280"/>
+								</g>
+								<g fill="#1c1e22" text-anchor="middle">
+									<text x="70" y="32">1</text>
+									<text x="220" y="32">2</text>
+									<text x="380" y="32">3</text>
+									<text x="530" y="32">4</text>
+									<text x="38" y="65">1</text>
+									<text x="38" y="175">2</text>
+									<text x="38" y="285">3</text>
+								</g>
+								<text x="560" y="32" fill="#1c1e22">&#8592; grid lines</text>
+								<g fill="#d9dee3">
+									<rect x="230" y="60" width="140" height="100"/>
+									<rect x="390" y="60" width="140" height="100"/>
+									<rect x="70" y="180" width="140" height="100"/>
+								</g>
+								<rect x="70" y="60" width="140" height="100" fill="#fe5c5d"/>
+								<text x="140" y="115" fill="#fff" text-anchor="middle">Grid cell</text>
+								<rect x="230" y="180" width="300" height="100" fill="#6190ba"/>
+								<text x="380" y="235" fill="#fff" text-anchor="middle">Grid area</text>
+								<path d="M555 60 h8 v100 h-8" fill="none" stroke="#1c1e22" stroke-width="2"/>
+								<text x="572" y="115" fill="#1c1e22">Row track</text>
+								<text x="224" y="230" fill="#fe5c5d" text-anchor="middle" transform="rotate(-90 220 230)">gap</text>
+								<text x="60" y="326" fill="#1c1e22">Grid container</text>
+							</svg>
+						</figure>
+					</section>
+					<section>
+						<h2>When to Use Grid ?</h2>
+						<p>Flexbox works in one direction and sizes from the content out. Grid works in two directions and sizes from the layout in.<br/>Use grid when rows and columns need to line up.</p>
+						<div class="vsWrap">
+							<div>
+								<h4>Flexbox: one dimension</h4>
+								<div class="vsFlex"><i>1</i><i>2</i><i>3</i><i>4</i></div>
+								<p class="note">Each line sizes its own items. Columns do not line up across lines.</p>
+							</div>
+							<div>
+								<h4>Grid: two dimensions</h4>
+								<div class="gd vsGrid"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i></div>
+								<p class="note">Rows and columns are shared, so every item lines up both ways.</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h2>Explicit vs Implicit Grid</h2>
+						<p>Tracks you define with <mark>grid-template-*</mark> form the explicit grid. When there are more items than cells, the browser adds implicit tracks, sized by <mark>grid-auto-rows</mark> / <mark>grid-auto-columns</mark>.</p>
+						<div class="gd implicit">
+							<i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i class="imp">7</i><i class="imp">8</i>
+						</div>
+						<div class="legend"><span><b></b>explicit rows (50px)</span><span><b class="dash"></b>implicit row (grid-auto-rows: 36px)</span></div>
+					</section>
+				</section>
+
+				<!-- Section 4 - Grid Container Properties -->
+				<section class="twoColumnSection vFull">
+
+					<section class="heroSection">
+						<h2>Grid Container Properties</h2>
+						<nav>
+							<a href="#/3/1" id="slide_3_1"> display</a>,
+							<a href="#/3/2" id="slide_3_2"> grid-template-columns / rows</a>,
+							<a href="#/3/3" id="slide_3_3"> grid-template-areas</a>,
+							<a href="#/3/4" id="slide_3_4"> grid-template</a>,
+							<a href="#/3/5" id="slide_3_5"> gap</a>,
+							<a href="#/3/6" id="slide_3_6"> justify-items</a>,
+							<a href="#/3/7" id="slide_3_7"> align-items</a>,
+							<a href="#/3/8" id="slide_3_8"> justify-content</a>,
+							<a href="#/3/9" id="slide_3_9"> align-content</a>,
+							<a href="#/3/10" id="slide_3_10"> grid-auto-rows / columns</a>,
+							<a href="#/3/11" id="slide_3_11"> grid-auto-flow</a>,
+							<a href="#/3/12" id="slide_3_12"> grid</a>
+						</nav>
+					</section>
+
+					<!-- Section 4 - Slide 2 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{display} <small>// Values: grid | inline-grid</small></h3>
+							<p><mark>grid</mark> makes a block-level grid container. <mark>inline-grid</mark> makes one that sits inline with the surrounding text.</p>
+							<figure class="big gdFig">
+								<div class="gd"><i>display: grid</i><i>2</i></div>
+								<figcaption class="gdCaption">block-level, full width</figcaption>
+								<div class="inlineDemo">Text before <div class="gd sm"><i>1</i><i>2</i></div> text after</div>
+								<figcaption class="gdCaption">inline-grid, sized to its content</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Display Grid Example:</h3>
+							<div class="gridPreview" data-preview="display"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 3 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-template-columns / rows} <small>// Default: none</small></h3>
+							<p>Defines the explicit columns and rows as a space-separated list of track sizes. Any length, percentage, <mark>fr</mark> or sizing function works.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: 60px 1fr 2fr; grid-template-rows: 40px auto;">
+									<i>60px</i><i>1fr</i><i>2fr</i><i class="hl">auto</i><i class="hl">auto</i><i class="hl">auto</i>
+								</div>
+								<figcaption class="gdCaption">grid-template-columns: 60px 1fr 2fr;<br/>grid-template-rows: 40px auto;</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Grid Template Columns Example:</h3>
+							<div class="gridPreview" data-preview="grid-template" data-title="grid-template-columns / rows"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 4 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-template-areas} <small>// Default: none</small></h3>
+							<p>Names areas of the grid with strings, one string per row. Items then claim an area with <mark>grid-area: name</mark>. A <mark>.</mark> leaves a cell empty.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: 1fr 3fr; grid-template-areas: 'header header' 'sidebar main' 'footer footer';">
+									<i style="grid-area: header;">header</i>
+									<i class="hl" style="grid-area: sidebar; min-height: 60px;">sidebar</i>
+									<i class="hl2" style="grid-area: main;">main</i>
+									<i style="grid-area: footer;">footer</i>
+								</div>
+								<figcaption class="gdCaption">"header header"<br/>"sidebar main"<br/>"footer footer"</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Grid Template Areas Example:</h3>
+							<div class="gridPreview" data-preview="grid-template-areas"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 5 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-template} <small>// Default: none</small></h3>
+							<p>Shorthand for <mark>grid-template-rows</mark>, <mark>grid-template-columns</mark> and <mark>grid-template-areas</mark>. Each row's size follows its area string, and column sizes come after the slash.</p>
+<pre>
+  .page {
+    grid-template:
+      "header header" 60px
+      "sidebar main"  1fr
+      "footer footer" 40px
+      / 200px 1fr;
+  }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Grid Template Example:</h3>
+							<div class="gridPreview" data-preview="grid-template-shorthand" data-title="grid-template"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 6 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{gap} <small>// Default: 0</small></h3>
+							<p>Sets the space between tracks. Shorthand for <mark>row-gap</mark> and <mark>column-gap</mark>. Gaps only go between tracks, never at the outer edges.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(3, 1fr); gap: 16px 4px;">
+									<i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i>
+								</div>
+								<figcaption class="gdCaption">gap: 16px 4px; /* row column */</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Grid Gap Example:</h3>
+							<div class="gridPreview" data-preview="gap"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 7 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{justify-items} <small>// Default: stretch</small></h3>
+							<p>Aligns every item inside its cell along the inline (row) axis.</p>
+							<figure class="big gdFig">
+								<div class="gdSet">
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; justify-items: start;"><i>1</i><i>2</i></div><figcaption>start</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; justify-items: end;"><i>1</i><i>2</i></div><figcaption>end</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; justify-items: center;"><i>1</i><i>2</i></div><figcaption>center</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; justify-items: stretch;"><i>1</i><i>2</i></div><figcaption>stretch</figcaption></figure>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Justify Items Example:</h3>
+							<div class="gridPreview" data-preview="justify-items"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 8 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{align-items} <small>// Default: stretch</small></h3>
+							<p>Aligns every item inside its cell along the block (column) axis.</p>
+							<ul>
+								<li><mark>place-items: center</mark> sets align-items and justify-items in one go.</li>
+							</ul>
+							<figure class="big gdFig">
+								<div class="gdSet">
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; grid-template-rows: 60px; align-items: start;"><i>1</i><i>2</i></div><figcaption>start</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; grid-template-rows: 60px; align-items: end;"><i>1</i><i>2</i></div><figcaption>end</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; grid-template-rows: 60px; align-items: center;"><i>1</i><i>2</i></div><figcaption>center</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-columns: 1fr 1fr; grid-template-rows: 60px; align-items: stretch;"><i>1</i><i>2</i></div><figcaption>stretch</figcaption></figure>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Align Items Example:</h3>
+							<div class="gridPreview" data-preview="align-items"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 9 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{justify-content} <small>// Default: normal</small></h3>
+							<p>When the tracks are smaller than the container, this moves the whole grid along the inline axis. It aligns the tracks, not the items.</p>
+							<figure class="big gdFig">
+								<div class="gdSet three">
+									<figure><div class="gd sm tracks" style="grid-template-columns: repeat(3, 24px); justify-content: start;"><i>1</i><i>2</i><i>3</i></div><figcaption>start</figcaption></figure>
+									<figure><div class="gd sm tracks" style="grid-template-columns: repeat(3, 24px); justify-content: end;"><i>1</i><i>2</i><i>3</i></div><figcaption>end</figcaption></figure>
+									<figure><div class="gd sm tracks" style="grid-template-columns: repeat(3, 24px); justify-content: center;"><i>1</i><i>2</i><i>3</i></div><figcaption>center</figcaption></figure>
+									<figure><div class="gd sm tracks" style="grid-template-columns: repeat(3, 24px); justify-content: space-between;"><i>1</i><i>2</i><i>3</i></div><figcaption>space-between</figcaption></figure>
+									<figure><div class="gd sm tracks" style="grid-template-columns: repeat(3, 24px); justify-content: space-around;"><i>1</i><i>2</i><i>3</i></div><figcaption>space-around</figcaption></figure>
+									<figure><div class="gd sm tracks" style="grid-template-columns: repeat(3, 24px); justify-content: space-evenly;"><i>1</i><i>2</i><i>3</i></div><figcaption>space-evenly</figcaption></figure>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Justify Content Example:</h3>
+							<div class="gridPreview" data-preview="justify-content"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 10 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{align-content} <small>// Default: normal</small></h3>
+							<p>Same as justify-content, but moves the rows along the block axis. It only has an effect when the container is taller than its rows.</p>
+							<ul>
+								<li><mark>place-content</mark> sets align-content and justify-content together.</li>
+							</ul>
+							<figure class="big gdFig">
+								<div class="gdSet three">
+									<figure><div class="gd sm tracks fixed" style="grid-template-columns: 1fr 1fr; grid-auto-rows: 18px; align-content: start;"><i>1</i><i>2</i><i>3</i><i>4</i></div><figcaption>start</figcaption></figure>
+									<figure><div class="gd sm tracks fixed" style="grid-template-columns: 1fr 1fr; grid-auto-rows: 18px; align-content: end;"><i>1</i><i>2</i><i>3</i><i>4</i></div><figcaption>end</figcaption></figure>
+									<figure><div class="gd sm tracks fixed" style="grid-template-columns: 1fr 1fr; grid-auto-rows: 18px; align-content: center;"><i>1</i><i>2</i><i>3</i><i>4</i></div><figcaption>center</figcaption></figure>
+									<figure><div class="gd sm tracks fixed" style="grid-template-columns: 1fr 1fr; grid-auto-rows: 18px; align-content: space-between;"><i>1</i><i>2</i><i>3</i><i>4</i></div><figcaption>space-between</figcaption></figure>
+									<figure><div class="gd sm tracks fixed" style="grid-template-columns: 1fr 1fr; grid-auto-rows: 18px; align-content: space-around;"><i>1</i><i>2</i><i>3</i><i>4</i></div><figcaption>space-around</figcaption></figure>
+									<figure><div class="gd sm tracks fixed" style="grid-template-columns: 1fr 1fr; grid-auto-rows: 18px; align-content: space-evenly;"><i>1</i><i>2</i><i>3</i><i>4</i></div><figcaption>space-evenly</figcaption></figure>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Align Content Example:</h3>
+							<div class="gridPreview" data-preview="align-content"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 11 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-auto-rows / columns} <small>// Default: auto</small></h3>
+							<p>Sizes the implicit tracks, the ones the browser creates when items land outside the explicit grid.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: 40px; grid-auto-rows: 22px;">
+									<i>1</i><i>2</i><i>3</i><i class="imp">4</i><i class="imp">5</i><i class="imp">6</i><i class="imp">7</i>
+								</div>
+								<figcaption class="gdCaption">grid-template-rows: 40px;<br/>grid-auto-rows: 22px; /* dashed rows */</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Grid Auto Rows Example:</h3>
+							<div class="gridPreview" data-preview="grid-auto-rows"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 12 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-auto-flow} <small>// Default: row</small></h3>
+							<p>Controls how the auto-placement algorithm fills the grid: row by row, or column by column. <mark>dense</mark> back-fills holes left by larger items.</p>
+							<figure class="big gdFig">
+								<div class="gdSet three">
+									<figure><div class="gd sm" style="grid-template-columns: repeat(3, 1fr);"><i>1</i><i>2</i><i class="hl" style="grid-column: span 2;">3</i><i>4</i><i>5</i></div><figcaption>row</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-columns: repeat(3, 1fr); grid-auto-flow: row dense;"><i>1</i><i>2</i><i class="hl" style="grid-column: span 2;">3</i><i>4</i><i>5</i></div><figcaption>row dense</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-rows: repeat(2, auto); grid-auto-flow: column;"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i></div><figcaption>column</figcaption></figure>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Grid Auto Flow Example:</h3>
+							<div class="gridPreview" data-preview="grid-auto-flow"></div>
+						</div>
+					</section>
+
+					<!-- Section 4 - Slide 13 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid} <small>// Default: none</small></h3>
+							<p>Shorthand for the explicit properties (<mark>grid-template-*</mark>) and the implicit ones (<mark>grid-auto-*</mark>) in one declaration.</p>
+							<ul>
+								<li>It resets every template and auto property it does not set. Prefer <mark>grid-template</mark> unless you need auto-flow.</li>
+							</ul>
+<pre>
+  .feed {
+    /* rows / columns */
+    grid: auto-flow 120px / repeat(3, 1fr);
+  }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Grid Shorthand Example:</h3>
+							<div class="gridPreview" data-preview="grid"></div>
+						</div>
+					</section>
+
+				</section>
+
+				<!-- Section 5 - Sizing Toolkit -->
+				<section class="twoColumnSection vFull">
+
+					<section class="heroSection">
+						<h2>Sizing Toolkit</h2>
+						<nav>
+							<a href="#/4/1" id="slide_4_1"> fr</a>,
+							<a href="#/4/2" id="slide_4_2"> fr vs %</a>,
+							<a href="#/4/3" id="slide_4_3"> repeat()</a>,
+							<a href="#/4/4" id="slide_4_4"> minmax()</a>,
+							<a href="#/4/5" id="slide_4_5"> auto-fill vs auto-fit</a>,
+							<a href="#/4/6" id="slide_4_6"> min-content / max-content / fit-content()</a>
+						</nav>
+					</section>
+
+					<!-- Section 5 - Slide 2 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{fr} <small>// fraction of free space</small></h3>
+							<p>The <mark>fr</mark> unit shares out the space left after fixed tracks and gaps are taken. <mark>1fr 1fr 2fr</mark> splits it 25% / 25% / 50%.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: 1fr 1fr 2fr;"><i>1fr</i><i>1fr</i><i class="hl">2fr</i></div>
+								<figcaption class="gdCaption">grid-template-columns: 1fr 1fr 2fr;</figcaption>
+								<div class="gd" style="grid-template-columns: 80px 1fr 1fr;"><i class="hl2">80px</i><i>1fr</i><i>1fr</i></div>
+								<figcaption class="gdCaption">grid-template-columns: 80px 1fr 1fr;</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Fraction Unit Example:</h3>
+							<div class="gridPreview" data-preview="fr" data-title="fr unit"></div>
+						</div>
+					</section>
+
+					<!-- Section 5 - Slide 3 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{fr vs %} <small>// why fr wins</small></h3>
+							<p><mark>%</mark> is measured against the whole container and ignores <mark>gap</mark>. <mark>fr</mark> only shares the space left after gaps and fixed tracks.</p>
+							<figure class="big gdFig">
+								<div class="gd overflow" style="grid-template-columns: 33.33% 33.33% 33.33%; gap: 10px;"><i>33.33%</i><i>33.33%</i><i class="hl2">33.33%</i></div>
+								<figcaption class="gdCaption">33.33% &times; 3 + gap: 10px &rarr; overflows</figcaption>
+								<div class="gd" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px;"><i>1fr</i><i>1fr</i><i class="hl">1fr</i></div>
+								<figcaption class="gdCaption">1fr &times; 3 + gap: 10px &rarr; fits</figcaption>
+							</figure>
+							<ul>
+								<li><mark>1fr</mark> instead of <mark>calc((100% - 2 * gap) / 3)</mark>.</li>
+								<li>Mixes with fixed sizes: <mark>200px 1fr</mark>, no calc().</li>
+								<li><mark>fr</mark> rows work without a fixed container height.</li>
+							</ul>
+						</div>
+						<div class="main">
+							<h3>fr vs % Example:</h3>
+							<div class="gridPreview" data-preview="fr-vs-percent" data-title="fr vs %"></div>
+						</div>
+					</section>
+
+					<!-- Section 5 - Slide 4 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{repeat()} <small>// repeat(count, tracks)</small></h3>
+							<p>Repeats a track list instead of writing it out. The pattern can hold more than one track.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(4, 1fr);"><i>1fr</i><i>1fr</i><i>1fr</i><i>1fr</i></div>
+								<figcaption class="gdCaption">repeat(4, 1fr)</figcaption>
+								<div class="gd" style="grid-template-columns: repeat(2, 40px 1fr);"><i class="hl2">40px</i><i>1fr</i><i class="hl2">40px</i><i>1fr</i></div>
+								<figcaption class="gdCaption">repeat(2, 40px 1fr)</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Repeat Function Example:</h3>
+							<div class="gridPreview" data-preview="repeat" data-title="repeat()"></div>
+						</div>
+					</section>
+
+					<!-- Section 5 - Slide 5 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{minmax()} <small>// minmax(min, max)</small></h3>
+							<p>Sets a size range for a track: never smaller than <mark>min</mark>, never larger than <mark>max</mark>.</p>
+							<ul>
+								<li><mark>minmax(200px, 1fr)</mark>: at least 200px, then share free space.</li>
+								<li><mark>minmax(0, 1fr)</mark>: a column that is allowed to shrink below its content.</li>
+								<li><mark>minmax(100px, auto)</mark>: a row at least 100px tall that grows with content.</li>
+							</ul>
+						</div>
+						<div class="main">
+							<h3>Minmax Function Example:</h3>
+							<div class="gridPreview" data-preview="minmax" data-title="minmax()"></div>
+						</div>
+					</section>
+
+					<!-- Section 5 - Slide 6 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{auto-fill vs auto-fit} <small>// repeat(auto-fill | auto-fit, size)</small></h3>
+							<p>Both create as many tracks as fit in the container. With few items, <mark>auto-fill</mark> keeps the empty tracks and <mark>auto-fit</mark> collapses them, so the items stretch.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(5, 1fr);"><i>1</i><i>2</i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>
+								<figcaption class="gdCaption">repeat(auto-fill, minmax(50px, 1fr))</figcaption>
+								<div class="gd" style="grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));"><i class="hl">1</i><i class="hl">2</i></div>
+								<figcaption class="gdCaption">repeat(auto-fit, minmax(50px, 1fr))</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Auto Fill vs Auto Fit Example:</h3>
+							<div class="gridPreview" data-preview="auto-fill-fit" data-title="auto-fill vs auto-fit"></div>
+						</div>
+					</section>
+
+					<!-- Section 5 - Slide 7 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{content sizing} <small>// min-content | max-content | fit-content()</small></h3>
+							<p>Size a track from what is inside it.</p>
+							<ul>
+								<li><mark>min-content</mark>: as narrow as the longest word.</li>
+								<li><mark>max-content</mark>: as wide as the content on one line.</li>
+								<li><mark>fit-content(150px)</mark>: max-content, capped at 150px.</li>
+							</ul>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: min-content 1fr;"><i class="hl">Grid layout</i><i>1fr</i></div>
+								<figcaption class="gdCaption">min-content 1fr</figcaption>
+								<div class="gd" style="grid-template-columns: max-content 1fr;"><i class="hl">Grid layout</i><i>1fr</i></div>
+								<figcaption class="gdCaption">max-content 1fr</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Content Sizing Example:</h3>
+							<div class="gridPreview" data-preview="content-sizing" data-title="content sizing"></div>
+						</div>
+					</section>
+
+				</section>
+
+				<!-- Section 6 - Grid Items Properties -->
+				<section class="twoColumnSection vFull">
+
+					<section class="heroSection">
+						<h2>Grid Items Properties</h2>
+						<nav>
+							<a href="#/5/1" id="slide_5_1"> grid-column-start / end</a>,
+							<a href="#/5/2" id="slide_5_2"> grid-column / grid-row</a>,
+							<a href="#/5/3" id="slide_5_3"> grid-area</a>,
+							<a href="#/5/4" id="slide_5_4"> justify-self</a>,
+							<a href="#/5/5" id="slide_5_5"> align-self</a>,
+							<a href="#/5/6" id="slide_5_6"> overlap &amp; z-index</a>
+						</nav>
+					</section>
+
+					<!-- Section 6 - Slide 2 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-column-start / end} <small>// Default: auto</small></h3>
+							<p>Places an item by naming the grid lines it starts and ends on. <mark>grid-row-start</mark> and <mark>grid-row-end</mark> do the same for rows.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(4, 1fr); grid-auto-rows: 30px;">
+									<i class="hl" style="grid-column-start: 2; grid-column-end: 4; grid-row-start: 1; grid-row-end: 3;">2 &#8594; 4</i>
+									<i>a</i><i>b</i><i>c</i><i>d</i><i>e</i><i>f</i>
+								</div>
+								<figcaption class="gdCaption">grid-column-start: 2; grid-column-end: 4;<br/>grid-row-start: 1; grid-row-end: 3;</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Grid Line Placement Example:</h3>
+							<div class="gridPreview" data-preview="grid-line-placement" data-title="grid-column-start / end"></div>
+						</div>
+					</section>
+
+					<!-- Section 6 - Slide 3 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-column / grid-row} <small>// Default: auto</small></h3>
+							<p>Shorthands for start / end. Use <mark>span n</mark> to cover n tracks, and negative numbers to count lines from the end.</p>
+							<ul>
+								<li><mark>grid-column: 1 / -1</mark> stretches across every explicit column.</li>
+							</ul>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(4, 1fr);">
+									<i class="hl" style="grid-column: 1 / -1;">1 / -1</i>
+									<i class="hl2" style="grid-column: span 2;">span 2</i>
+									<i>c</i><i>d</i>
+								</div>
+								<figcaption class="gdCaption">grid-column: 1 / -1;<br/>grid-column: span 2;</figcaption>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Span and Negative Lines Example:</h3>
+							<div class="gridPreview" data-preview="span-negative" data-title="span and negative lines"></div>
+						</div>
+					</section>
+
+					<!-- Section 6 - Slide 4 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{grid-area} <small>// Default: auto</small></h3>
+							<p>Either puts the item into a named area from <mark>grid-template-areas</mark>, or works as a shorthand for all four lines.</p>
+							<ul>
+								<li><mark>grid-area: main;</mark></li>
+								<li><mark>grid-area: 1 / 2 / 3 / 4;</mark> is row-start / column-start / row-end / column-end.</li>
+							</ul>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(3, 1fr); grid-auto-rows: 30px;">
+									<i class="hl" style="grid-area: 1 / 2 / 3 / 4;">1 / 2 / 3 / 4</i>
+									<i>a</i><i>b</i>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Grid Area Example:</h3>
+							<div class="gridPreview" data-preview="grid-area" data-title="grid-area"></div>
+						</div>
+					</section>
+
+					<!-- Section 6 - Slide 5 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{justify-self} <small>// Default: auto</small></h3>
+							<p>Aligns a single item inside its cell along the inline axis, overriding the container's <mark>justify-items</mark>. Unlike flexbox, grid has a working justify-self.</p>
+							<figure class="big gdFig">
+								<div class="gdSet">
+									<figure><div class="gd sm"><i class="hl" style="justify-self: start;">item</i></div><figcaption>start</figcaption></figure>
+									<figure><div class="gd sm"><i class="hl" style="justify-self: end;">item</i></div><figcaption>end</figcaption></figure>
+									<figure><div class="gd sm"><i class="hl" style="justify-self: center;">item</i></div><figcaption>center</figcaption></figure>
+									<figure><div class="gd sm"><i class="hl" style="justify-self: stretch;">item</i></div><figcaption>stretch</figcaption></figure>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Justify Self Example:</h3>
+							<div class="gridPreview" data-preview="justify-self" data-title="justify-self"></div>
+						</div>
+					</section>
+
+					<!-- Section 6 - Slide 6 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{align-self} <small>// Default: auto</small></h3>
+							<p>Aligns a single item inside its cell along the block axis, overriding the container's <mark>align-items</mark>.</p>
+							<ul>
+								<li><mark>place-self</mark> sets align-self and justify-self together.</li>
+							</ul>
+							<figure class="big gdFig">
+								<div class="gdSet">
+									<figure><div class="gd sm" style="grid-template-rows: 60px;"><i class="hl" style="align-self: start;">item</i></div><figcaption>start</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-rows: 60px;"><i class="hl" style="align-self: end;">item</i></div><figcaption>end</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-rows: 60px;"><i class="hl" style="align-self: center;">item</i></div><figcaption>center</figcaption></figure>
+									<figure><div class="gd sm" style="grid-template-rows: 60px;"><i class="hl" style="align-self: stretch;">item</i></div><figcaption>stretch</figcaption></figure>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Align Self Example:</h3>
+							<div class="gridPreview" data-preview="align-self" data-title="align-self"></div>
+						</div>
+					</section>
+
+					<!-- Section 6 - Slide 7 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>{overlap &amp; z-index} <small>// Default: auto</small></h3>
+							<p>Items can share cells. Later items paint on top, and <mark>z-index</mark> works on grid items without setting <mark>position</mark>.</p>
+							<figure class="big gdFig">
+								<div class="gd" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 40px);">
+									<i class="hl" style="grid-area: 1 / 1 / 3 / 3; z-index: 2; opacity: 0.9;">z-index: 2</i>
+									<i class="hl2" style="grid-area: 2 / 2 / 4 / 4;">z-index: auto</i>
+								</div>
+							</figure>
+						</div>
+						<div class="main">
+							<h3>Overlapping Items Example:</h3>
+							<div class="gridPreview" data-preview="overlap" data-title="overlap &amp; z-index"></div>
+						</div>
+					</section>
+
+				</section>
+
+				<!-- Section 7 -->
+				<section class="twoColumnSection vFull">
+
+					<section class="heroSection">
+						<h3>So, how does basic grid work? <br/><small>it's just 'display: grid', but it comes with useful default properties</small></h3>
+						<div class="egcBox">
+							<div>1</div>
+							<p>This paragraph is the second grid item. With no columns defined, it sits in its own row under the first item, like a block element.</p>
+							<div>3</div>
+						</div>
+						<ol>
+							<li class="fragment" data-fragment-index="1">once you have given <mark>display: grid</mark>, the grid has a single column track, so items stack like blocks</li>
+							<li class="fragment" data-fragment-index="2">default <mark>grid-auto-flow: row</mark>, places each item in the next cell, filling rows from left to right</li>
+							<li class="fragment" data-fragment-index="3">default <mark>grid-auto-rows: auto</mark>, creates an implicit row for each item, sized to its content</li>
+							<li class="fragment" data-fragment-index="4">default <mark>justify-items</mark> / <mark>align-items: stretch</mark>, makes items fill their cells</li>
+							<li class="fragment" data-fragment-index="5">default <mark>gap: 0</mark>, and margins of grid items never collapse into each other</li>
+						</ol>
+					</section>
+
+				</section>
+
+				<!-- Section 8 - Tips & Tricks -->
+				<section class="twoColumnSection vFull">
+
+					<section class="heroSection tips">
+						<h2>Useful Tips & Tricks</h2>
+					</section>
+
+					<!-- Section 8 - Slide 2 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>Responsive cards, no media queries</h3>
+							<p>Cards wrap into as many columns as fit, each at least 240px wide, and stretch to fill the row.</p>
+<pre>
+  .cards {
+    display: grid;
+    grid-template-columns:
+      repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Responsive card grid</h3>
+							<div class="gridPreview" data-preview="tip-cards" data-title="responsive cards"></div>
+						</div>
+					</section>
+
+					<!-- Section 8 - Slide 3 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>Page layout with named areas</h3>
+							<p>Redraw the layout at a breakpoint by changing only the area strings. The HTML stays the same.</p>
+<pre>
+  .page {
+    display: grid;
+    grid-template-areas:
+      "header" "main" "sidebar" "footer";
+  }
+  @media (min-width: 768px) {
+    .page {
+      grid-template-columns: 220px 1fr;
+      grid-template-areas:
+        "header  header"
+        "sidebar main"
+        "footer  footer";
+    }
+  }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Responsive page layout</h3>
+							<div class="gridPreview" data-preview="tip-page-layout" data-title="named areas layout"></div>
+						</div>
+					</section>
+
+					<!-- Section 8 - Slide 4 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>Stack layers without position</h3>
+							<p>Put the image and the caption in the same cell. No absolute positioning, and the container still sizes to its tallest layer.</p>
+<pre>
+  .hero {
+    display: grid;
+  }
+  .hero > * {
+    grid-area: 1 / 1;
+  }
+  .hero .caption {
+    align-self: end;
+  }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Overlay text on an image</h3>
+							<div class="gridPreview" data-preview="tip-overlay" data-title="stacked layers"></div>
+						</div>
+					</section>
+
+					<!-- Section 8 - Slide 5 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>Center anything</h3>
+							<p>Two lines, both axes. Works for one child or a stack of children.</p>
+<pre>
+  .center {
+    display: grid;
+    place-items: center;
+  }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Center with place-items</h3>
+							<div class="gridPreview" data-preview="tip-center" data-title="center anything"></div>
+						</div>
+					</section>
+
+					<!-- Section 8 - Slide 6 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>Full-bleed with named lines</h3>
+							<p>Name the lines around a centered content column. Text stays readable, and any child can break out to the full width.</p>
+<pre>
+  .article {
+    display: grid;
+    grid-template-columns:
+      [full-start] 1fr
+      [content-start] min(65ch, 100% - 2rem)
+      [content-end] 1fr [full-end];
+  }
+  .article > * { grid-column: content; }
+  .article > .bleed { grid-column: full; }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Full-bleed article layout</h3>
+							<div class="gridPreview" data-preview="tip-full-bleed" data-title="full-bleed"></div>
+						</div>
+					</section>
+
+					<!-- Section 8 - Slide 7 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>Line up card content with subgrid</h3>
+							<p>Each card spans three rows and reuses the parent's row tracks, so titles, text and buttons line up across cards even when the text length differs.</p>
+<pre>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .card {
+    grid-row: span 3;
+    display: grid;
+    grid-template-rows: subgrid;
+  }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Aligned cards with subgrid</h3>
+							<div class="gridPreview" data-preview="tip-subgrid" data-title="subgrid cards"></div>
+						</div>
+					</section>
+
+					<!-- Section 8 - Slide 8 -->
+					<section class="codeDemo">
+						<div class="sideBar">
+							<h3>Gallery that fills the gaps</h3>
+							<p>Mix wide and tall tiles and let <mark>dense</mark> pull smaller items back into the holes.</p>
+<pre>
+  .gallery {
+    display: grid;
+    grid-template-columns:
+      repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 150px;
+    grid-auto-flow: dense;
+  }
+  .wide { grid-column: span 2; }
+  .tall { grid-row: span 2; }
+</pre>
+						</div>
+						<div class="main">
+							<h3>Dense photo gallery</h3>
+							<div class="gridPreview" data-preview="tip-dense" data-title="dense gallery"></div>
+						</div>
+					</section>
+
+					<!-- Section 8 - Slide 9 -->
+					<section class="heroSection gotchas">
+						<h2>Common gotchas</h2>
+						<ol>
+							<li class="fragment" data-fragment-index="1"><mark>1fr</mark> is <mark>minmax(auto, 1fr)</mark>, so a long word or wide image can push the column wider. Use <mark>minmax(0, 1fr)</mark> to let it shrink.</li>
+							<li class="fragment" data-fragment-index="2"><mark>auto-fill</mark> keeps empty tracks, <mark>auto-fit</mark> collapses them. With few items they look very different.</li>
+							<li class="fragment" data-fragment-index="3">Lines are numbered from 1, so a 3-column grid has lines 1 to 4. <mark>grid-column: 1 / 3</mark> covers two columns, not three.</li>
+							<li class="fragment" data-fragment-index="4">Each named area must form a rectangle. An L-shaped area makes the whole <mark>grid-template-areas</mark> declaration invalid.</li>
+							<li class="fragment" data-fragment-index="5">Only direct children are grid items. Use <mark>subgrid</mark> for nested alignment.</li>
+							<li class="fragment" data-fragment-index="6">Line placement, <mark>dense</mark> and <mark>order</mark> change visual order only. Keyboard and screen reader order still follow the DOM.</li>
+						</ol>
+					</section>
+
+				</section>
+
+				<section class="twoColumnSection vFull" style="text-align: left;">
+
+					<section class="heroSection taskSection">
+						<div class="previewBlk full">
+							<h1>TASK</h1>
+							<p>
+								<b>Build these layouts with CSS Grid.</b> <br>
+								<ol>
+									<li>Complete the CSS Grid Garden game <a href="https://cssgridgarden.com/" target="_blank">https://cssgridgarden.com/</a></li>
+									<li>Dashboard layout with a fixed header, a sidebar and a card area, using <mark>grid-template-areas</mark>.</li>
+									<li>Magazine page: a hero story across the full width, then mixed-size stories using <mark>span</mark>.</li>
+									<li>Photo gallery with wide and tall tiles and no gaps, using <mark>grid-auto-flow: dense</mark>.</li>
+									<li>Rebuild one layout from the flexbox task with grid, and change it at responsive breakpoints.</li>
+								</ol>
+								<small>*Inspect your grids with the grid overlay in Firefox or Chrome DevTools.</small>
+							</p>
+						</div>
+					</section>
+
+				</section>
+
+				<section class="endSection vFull" style="text-align: left;">
+
+					<section class="heroSection">
+						<h1>THANK YOU</h1>
+						<p>
+							Useful Links: <br>
+							- <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">A complete guide to CSS Grid</a>
+							- <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout" target="_blank">MDN: CSS grid layout</a> <br>
+							- <a href="https://gridbyexample.com/" target="_blank">Grid by Example</a>
+							- <a href="https://grid.layoutit.com/" target="_blank">Layoutit visual grid builder</a> <br>
+							- <a href="https://firefox-source-docs.mozilla.org/devtools-user/page_inspector/how_to/examine_grid_layouts/" target="_blank">Firefox Grid Inspector</a>
+						</p>
+					</section>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="assets/js/head.min.js"></script>
+		<script src="assets/js/reveal.js"></script>
+		<script src="assets/js/preview.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+			});
+
+		</script>
+
+		<script>
+			var gridAnimateSpeed = 3000, gridInterval, gridTI = {};
+			function gridAnimate(speed) {
+				$('.iGrid').attr('class','iGrid vSmall full');
+				gridTI['1'] = setTimeout(function(){
+					$('.iGrid').addClass('gColumns');
+				}, speed);
+				gridTI['2'] = setTimeout(function(){
+					$('.iGrid').attr('class','iGrid vSmall full gAreas');
+				}, speed * 2);
+				gridTI['3'] = setTimeout(function(){
+					$('.iGrid').attr('class','iGrid vSmall full gSpan');
+				}, speed * 3);
+				gridTI['4'] = setTimeout(function(){
+					$('.iGrid').attr('class','iGrid vSmall full gColumns');
+				}, speed * 4);
+			}
+
+			function initGridAnimate() {
+				clearInterval(gridInterval);
+				gridAnimate(gridAnimateSpeed);
+				gridInterval = setInterval(function(){
+					gridAnimate(gridAnimateSpeed);
+				}, gridAnimateSpeed * 5);
+			}
+		</script>
+		<script>
+			var initFromOne = false;
+			Reveal.addEventListener( 'ready', function( event ) {
+				// event.currentSlide, event.indexh, event.indexv
+				if(event.indexh == 0) {
+					initGridAnimate();
+					initFromOne = true;
+				}
+			});
+
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				if(event.indexh == 0) {
+					initGridAnimate();
+					initFromOne = true;
+				}
+				else if(initFromOne) {
+					clearInterval(gridInterval);
+					for(var i = 1; i <= 4; i++) {
+						clearTimeout(gridTI[i])
+					}
+				}
+			});
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,404 @@
+/*********************************************
+ * Grid presentation styles
+ * Loaded after theme.css. Holds the title slide
+ * animation and the CSS-rendered grid diagrams.
+ *********************************************/
+
+/* Title slide - animated grid */
+.reveal .iGrid {
+	background: white;
+	display: grid;
+	gap: 2%;
+	padding: 2%;
+	box-sizing: border-box;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 2fr 1fr;
+	grid-template-areas: "a" "b" "c";
+	transition: grid-template-columns 0.4s, grid-template-rows 0.4s;
+}
+.reveal .iGrid > div {
+	background: #fe5c5d;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.reveal .iGrid > div:nth-child(1) {
+	grid-area: a;
+}
+.reveal .iGrid > div:nth-child(2) {
+	background: #131313;
+	grid-area: b;
+}
+.reveal .iGrid > div:nth-child(3) {
+	background: #6190ba;
+	grid-area: c;
+}
+.reveal .iGrid.gColumns {
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr;
+	grid-template-areas: "a b c";
+}
+.reveal .iGrid.gAreas {
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas: "a a b" "c c b";
+}
+.reveal .iGrid.gSpan {
+	grid-template-columns: 1fr 2fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas: "a b b" "a c c";
+}
+
+/* Grid diagrams */
+.reveal .gd {
+	background: #fff;
+	display: grid;
+	gap: 4px;
+	padding: 4px;
+	box-sizing: border-box;
+	width: 100%;
+	font-family: monospace;
+	font-size: 0.55em;
+	line-height: 1.2;
+}
+.reveal .gd > i {
+	background: #1c1e22;
+	color: #fff;
+	font-style: normal;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 26px;
+	padding: 2px 6px;
+	box-sizing: border-box;
+	text-align: center;
+}
+.reveal .gd > i.hl {
+	background: #6190ba;
+}
+.reveal .gd > i.hl2 {
+	background: #f2b134;
+	color: #000;
+}
+.reveal .gd > i.ghost,
+.reveal .gd > i.imp {
+	background: transparent;
+	border: 2px dashed #999;
+	color: #666;
+}
+.reveal .gd.overflow {
+	outline: 2px dashed #1c1e22;
+	outline-offset: -2px;
+}
+.reveal .gd.sm {
+	font-size: 0.42em;
+}
+.reveal .gd.sm > i {
+	min-height: 18px;
+	padding: 1px 4px;
+}
+.reveal .gd.fixed {
+	height: 90px;
+}
+.reveal .gd.tracks {
+	background: repeating-linear-gradient(45deg, #fff, #fff 4px, #eee 4px, #eee 8px);
+}
+.reveal .gdSet {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 14px 16px;
+	width: 100%;
+}
+.reveal .gdSet.three {
+	grid-template-columns: repeat(3, 1fr);
+}
+.reveal .gdSet.one {
+	grid-template-columns: 1fr;
+}
+.reveal .gdSet figure,
+section.codeDemo .sideBar .gdSet figure {
+	width: auto;
+	margin: 0;
+}
+.reveal .gdSet figcaption,
+.reveal figcaption.gdCaption {
+	color: #000;
+	font-family: monospace;
+	font-size: 0.5em;
+	margin-top: 4px;
+	text-align: left;
+}
+section.codeDemo .sideBar figure.big.gdFig {
+	width: 80%;
+}
+.reveal .inlineDemo {
+	background: #fff;
+	color: #000;
+	font-size: 0.55em;
+	padding: 6px;
+	text-align: left;
+}
+.reveal .inlineDemo .gd {
+	display: inline-grid;
+	width: auto;
+	grid-template-columns: auto auto;
+	vertical-align: middle;
+	background: #eee;
+}
+section.codeDemo .sideBar pre {
+	width: 80%;
+	margin: 0 10% 1em;
+	font-size: 0.5em;
+}
+
+/* Basics - light section diagrams */
+section.basicSection figure.terms {
+	width: 52%;
+}
+section.basicSection figure.terms svg {
+	width: 100%;
+	height: auto;
+}
+.reveal .vsWrap {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 40px;
+	width: 70%;
+	max-width: 1100px;
+}
+.reveal .vsWrap h4 {
+	color: #000;
+	text-align: left;
+}
+.reveal .vsWrap .note {
+	color: #629e7c;
+	font-size: 0.6em;
+	text-align: left;
+	margin: 8px 0 0;
+}
+.reveal .vsFlex {
+	background: #fff;
+	border: 2px solid #1c1e22;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	padding: 6px;
+}
+.reveal .vsFlex > i {
+	background: #fe5c5d;
+	color: #fff;
+	font-style: normal;
+	font-size: 0.6em;
+	padding: 10px 0;
+	flex: 1 1 auto;
+}
+.reveal .vsFlex > i:nth-child(1) { flex-basis: 30%; }
+.reveal .vsFlex > i:nth-child(2) { flex-basis: 50%; }
+.reveal .vsFlex > i:nth-child(3) { flex-basis: 20%; }
+.reveal .vsFlex > i:nth-child(4) { flex-basis: 60%; }
+.reveal .vsGrid {
+	border: 2px solid #1c1e22;
+	grid-template-columns: repeat(3, 1fr);
+	font-size: 0.6em;
+}
+.reveal .vsGrid > i {
+	padding: 10px 0;
+}
+section.basicSection .gd.implicit {
+	width: 45%;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 50px 50px;
+	grid-auto-rows: 36px;
+	border: 2px solid #1c1e22;
+	font-size: 0.6em;
+}
+.reveal .legend {
+	color: #000;
+	font-size: 0.55em;
+	margin-top: 14px;
+}
+.reveal .legend span {
+	display: inline-block;
+	margin: 0 12px;
+}
+.reveal .legend b {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+	margin-right: 6px;
+	background: #1c1e22;
+}
+.reveal .legend b.dash {
+	background: transparent;
+	border: 2px dashed #999;
+	box-sizing: border-box;
+}
+
+/* How does basic grid work */
+.reveal .egcBox {
+	display: grid;
+	width: 70%;
+	max-width: 580px;
+	margin: 0 auto;
+}
+.reveal .egcBox > div {
+	background: #fe5c5d;
+	font-size: 1.2em;
+	padding: 10px 20px;
+	text-align: left;
+}
+.reveal .egcBox > p {
+	background: #ffffff;
+	color: #000;
+	font-size: 0.8em;
+	margin: 0;
+	padding: 20px;
+	text-align: left;
+}
+.reveal .egcBox > div:last-child {
+	background: #6190ba;
+}
+
+/* Gotchas list is longer than the flexbox one */
+.reveal .heroSection.gotchas ol {
+	font-size: 0.85em;
+	max-width: 1300px;
+	padding: 0 5%;
+	box-sizing: border-box;
+}
+
+/*********************************************
+ * Live preview (replaces the CodePen embeds)
+ *********************************************/
+.reveal .gridPreview {
+	background: #1c1e22;
+	box-shadow: 0 0 0 1px #34363d, 0 10px 30px rgba(0, 0, 0, 0.4);
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	line-height: 1.4;
+	text-align: left;
+	width: 860px;
+	max-width: 92%;
+	margin-bottom: 3em;
+}
+.reveal .pvHead {
+	background: #131417;
+	color: #8b8d94;
+	display: flex;
+	justify-content: space-between;
+	font-family: monospace;
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	padding: 8px 14px;
+	text-transform: uppercase;
+}
+.reveal .pvHead span:first-child {
+	color: #fe5c5d;
+}
+.reveal .pvControls {
+	border-bottom: 1px solid #34363d;
+	padding: 8px 14px;
+}
+.reveal .pvRow {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 0;
+}
+.reveal .pvLabel {
+	color: #46d6e6;
+	font-family: monospace;
+	font-size: 14px;
+	margin-right: 4px;
+}
+.reveal .pvRow button {
+	background: #2c2f37;
+	border: 0;
+	border-radius: 3px;
+	color: #ddd;
+	cursor: pointer;
+	font-family: monospace;
+	font-size: 13px;
+	padding: 5px 10px;
+}
+.reveal .pvRow button:hover {
+	background: #3a3e48;
+}
+.reveal .pvRow button.active {
+	background: #fe5c5d;
+	color: #000;
+}
+.reveal .pvBody {
+	display: grid;
+	grid-template-columns: 1.25fr 1fr;
+	height: 330px;
+}
+.reveal .pvStage {
+	background: #dfe5ea;
+	box-sizing: border-box;
+	color: #000;
+	overflow: auto;
+	padding: 16px;
+}
+.reveal .pvStage.pvInline {
+	font-size: 16px;
+	line-height: 2;
+}
+.reveal .pvGrid {
+	box-sizing: border-box;
+	outline: 2px dashed #6190ba;
+	outline-offset: 2px;
+}
+.reveal .pvStage.pvInline .pvGrid {
+	vertical-align: middle;
+}
+.reveal .pvGrid > div {
+	background: #2ecc71;
+	box-sizing: border-box;
+	color: #fff;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 1.2;
+	min-height: 40px;
+	padding: 8px 14px;
+}
+.reveal .pvGrid > div:nth-child(4n+2) { background: #e0b400; }
+.reveal .pvGrid > div:nth-child(4n+3) { background: #e04444; }
+.reveal .pvGrid > div:nth-child(4n+4) { background: #3d9ad1; }
+.reveal .pvCode {
+	background: #1c1e22;
+	box-sizing: border-box;
+	color: #ccc;
+	font-family: monospace;
+	font-size: 13px;
+	line-height: 1.55;
+	overflow: auto;
+	padding: 14px;
+	white-space: pre;
+}
+.reveal .pvCode .pvSel {
+	color: #46d6e6;
+}
+.reveal .pvCode .pvProp {
+	color: #f2b134;
+}
+.reveal .pvCode .pvChanged {
+	background: rgba(254, 92, 93, 0.22);
+	box-shadow: -14px 0 0 rgba(254, 92, 93, 0.22), 14px 0 0 rgba(254, 92, 93, 0.22);
+	color: #fff;
+}
+.reveal .pvGrid > div.pvTarget {
+	box-shadow: inset 0 0 0 3px #fff, 0 0 0 2px #1c1e22;
+}
+.reveal .pvGrid > div > div {
+	background: rgba(0, 0, 0, 0.18);
+	font-size: 14px;
+	font-weight: normal;
+	padding: 6px 8px;
+}
+.reveal .pvGrid > div > div:first-child {
+	font-weight: bold;
+}
